@@ -16,16 +16,16 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
       // "@components/*": ["src/components/*"],
       // "@pages/*": ["src/pages/*"],
       // "@assets/*": ["src/styles/*"],
       // "@utils/*": ["src/utils/*"],
-      // "@context/*": ["src/context/*"],
+      "@context/*": ["src/context/*"]
       // "@services/*": ["src/services/*"],
       // "@redux/*": ["src/redux/*"]
     },
-    "baseUrl": "src"
+    "baseUrl": "."
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
