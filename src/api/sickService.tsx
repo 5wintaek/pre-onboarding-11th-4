@@ -1,20 +1,18 @@
-import { ISickList } from '@/interface/iSickList';
-import { AxiosInstance } from 'axios'; // Typescript 에서만 사용하는 타입지정
+import axios from 'axios';
+import axiosClient from '@/Client/axiosClient';
 import { getSickURL } from '@/utils/sickUrl';
 
-export interface sickServiceInterface {
-  getSickListByQuery: (query: string) => Promise<ISickList>;
-}
+const baseURL = 'http://localhost:4000';
 
-export class SickService implements sickServiceInterface {
-  axiosClient: AxiosInstance;
+export const getSickList = async (query: string) => {
+  console.log(`${baseURL}/sick?q=${query}`);
 
-  constructor(axiosClient: AxiosInstance) {
-    this.axiosClient = axiosClient;
+  try {
+    const response = await axiosClient(`${baseURL}/sick?q=${query}`).get();
+
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
   }
-
-  getSickListbyQuery = async (query: string) => {
-    const { data } = await this.axiosClient.get(getSickURL(query));
-    return data as ISickList;
-  };
-}
+};
