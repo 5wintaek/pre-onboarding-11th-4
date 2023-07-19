@@ -1,21 +1,42 @@
-import { ReactNode, createContext, useContext } from 'react';
-import { sickServiceInterface } from '@/api/sickService';
+import { getSickList } from '@/api/sickService';
+import { ReactNode, useState, createContext } from 'react';
 
-const sickServiceContext = createContext<sickServiceInterface | null>(null);
-
-export const useSickService = () => useContext(sickServiceContext);
-
-export const sickServiceProvider = ({
-  children,
-  sickService,
-}: {
-  children: ReactNode;
-  sickService: sickServiceInterface;
-}) => {
-  const getSickListByQuery = sickService.getSickListByQuery.bind(sickService);
-  return (
-    <sickServiceContext.Provider value={{ getSickListByQuery }}>
-      {children}
-    </sickServiceContext.Provider>
-  );
+type RecommendValueType = {
+  sickCd: string;
+  sickNm: string;
 };
+
+type SearchContextType = {
+  recommendValue: RecommendValueType[] | undefined;
+  fetchRecommendData: (
+    value: string
+  ) => Promise<RecommendValueType[] | undefined>;
+};
+
+export const sickContext = createContext<SearchContextType>(null);
+
+export function SickProvider({ children }: ReactNode) {
+  const [recommendValue, setRecommendValue] = useState<
+    RecommendValueType[] | undefined
+  >([]);
+
+  const fetchRecommendData = async (query: string) => {
+    try {
+      const data = await getSickList(query);
+      console.log('List api');
+      setRecommendValue(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <sickContext.Provider value={{ recommendValue, fetchRecommendData }}>
+      {children}
+    </sickContext.Provider>
+  );
+}
+
+export type { SearchContextType };
+export default SickProvider;
