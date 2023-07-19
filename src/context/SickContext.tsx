@@ -27,8 +27,11 @@ export function SickProvider({ children }: ReactNode) {
       } else {
         const data = await getSickList(query);
         console.info('calling api..');
-        setRecommendValue(data);
-        return data;
+        const filteredData = data.filter((item: RecommendValueType) =>
+          item.sickNm.includes(query)
+        );
+        setRecommendValue(filteredData);
+        return filteredData;
       }
     } catch (error) {
       console.log(error);
