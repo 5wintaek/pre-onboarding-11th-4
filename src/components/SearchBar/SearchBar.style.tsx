@@ -12,7 +12,7 @@ export const Header = styled.h2`
   font-size: 20px;
   font-weight: 700;
   line-height: 1.6;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   margin-bottom: 40px;
 `;
 
@@ -43,4 +43,8 @@ export const Button = styled.button`
   color: #fff;
   border-radius: 50px 50px;
   cursor: pointer;
+`;
+
+export const Norecommend = styled.li`
+  color: #555;
 `;

@@ -11,6 +11,8 @@ export function SearchBar() {
   ) as SearchContextType;
   const [inputValue, setInputValue] = useState<string>('');
   const debounce = useDebounce(inputValue, 300);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  // const limitedList = recommendValue?.slice(0, 7);
 
   useEffect(() => {
     if (debounce) {
@@ -18,6 +20,12 @@ export function SearchBar() {
       console.log(debounce);
     }
   }, [debounce]);
+
+  const handleFocus = () => {
+    setIsFocused((prev) => {
+      return !prev;
+    });
+  };
 
   const handleClick = async () => {
     // 여기는 이동처리만
@@ -35,7 +43,7 @@ export function SearchBar() {
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
-    // await fetchRecommendData(inputValue);
+    await fetchRecommendData(value);
 
     // if (e.target.value === '') {
     //   setRecommendValue([]);
@@ -54,19 +62,23 @@ export function SearchBar() {
   return (
     <S.Container>
       <S.Header>국내 모든 임상시험 검색하고 온라인으로 참여하기</S.Header>
-      <S.Form action="">
+      <S.Form>
         <S.Label htmlFor="search">
           <S.Input
             type="text"
             value={inputValue}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            onFocus={handleFocus}
+            onBlur={handleFocus}
           />
           <S.Button type="button" onClick={handleClick}>
             <SearchIcon width={'18px'} height={'20px'} />
           </S.Button>
         </S.Label>
-        <RecommendList recommendValue={recommendValue} />
+        {isFocused && inputValue.trim() !== '' ? (
+          <RecommendList recommendValue={recommendValue} />
+        ) : null}
       </S.Form>
     </S.Container>
   );

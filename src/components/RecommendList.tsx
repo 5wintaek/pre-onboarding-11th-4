@@ -8,9 +8,13 @@ export const RecommendList = ({
 }) => {
   return (
     <Wrap>
-      {recommendValue.map((item) => (
-        <List key={item.sickCd}>{item.sickNm}</List>
-      ))}
+      {recommendValue.length === 0 ? (
+        <div>추천 검색어 없음</div>
+      ) : (
+        recommendValue.map((item) => (
+          <List key={item.sickCd}>{item.sickNm}</List>
+        ))
+      )}
     </Wrap>
   );
 };
@@ -22,12 +26,11 @@ export const Wrap = styled.ul`
   background: #fff;
   border-radius: 15px;
   padding: 10px 0 20px;
-  margin-left: 80px;
+  /* margin-left: 80px; */
 `;
 
 export const List = styled.li`
   color: #999;
   font-size: 14px;
   padding: 15px 30px;
-  /* background-color: red; */
 `;
