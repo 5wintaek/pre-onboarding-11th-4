@@ -23,7 +23,7 @@ export function SickProvider({ children }: ReactNode) {
   const fetchRecommendData = async (query: string) => {
     try {
       const data = await getSickList(query);
-      console.log('List api');
+      console.log('context api 호출..');
       setRecommendValue(data);
       return data;
     } catch (error) {
@@ -38,5 +38,5 @@ export function SickProvider({ children }: ReactNode) {
   );
 }
 
-export type { SearchContextType };
+export type { SearchContextType, RecommendValueType };
 export default SickProvider;
