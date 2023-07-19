@@ -1,17 +1,11 @@
-export type RecommendValueType = {
-  sickCd: string;
-  sickNm: string;
-};
-
-// interface RecommendListProps {
-//   recommendations : RecommendValueType[]
-//   onRecommendItemClick : (item : RecommendValueType) => void;
-// }
-
-export const RecommendList = () => {
+export const RecommendList = ({
+  recommendValue,
+}: {
+  recommendValue: RecommendValueType[];
+}) => {
   return (
     <ul>
-      {recommendations.map((item) => (
+      {recommendValue.map((item) => (
         <li key={item.sickCd}>{item.sickNm}</li>
       ))}
     </ul>

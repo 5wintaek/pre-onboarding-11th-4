@@ -1,9 +1,12 @@
 import { getSickList } from '@/api/sickService';
-import { sickContext } from '@/context/SickContext';
+import { SearchContextType, sickContext } from '@/context/SickContext';
 import { ChangeEvent, useContext, useState } from 'react';
+import { RecommendList } from './RecommendList';
 
 export function SearchBar() {
-  const { recommendValue, fetchRecommendData } = useContext(sickContext);
+  const { recommendValue, fetchRecommendData } = useContext(
+    sickContext
+  ) as SearchContextType;
   const [inputValue, setInputValue] = useState<string>('');
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -47,11 +50,7 @@ export function SearchBar() {
       <button type="button" onClick={handleClick}>
         버튼
       </button>
-      {showModal && (
-        <div>
-          <button onClick={handleCloseModal}>닫기</button>
-        </div>
-      )}
+      <RecommendList recommendValue={recommendValue} />
     </div>
   );
 }
