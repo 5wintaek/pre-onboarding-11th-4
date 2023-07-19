@@ -9,7 +9,7 @@ export const RecommendList = ({
   return (
     <Wrap>
       {recommendValue.length === 0 ? (
-        <div>추천 검색어 없음</div>
+        <List>추천 검색어 없음</List>
       ) : (
         recommendValue.map((item) => (
           <List key={item.sickCd}>{item.sickNm}</List>
