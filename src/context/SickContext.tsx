@@ -22,17 +22,23 @@ export function SickProvider({ children }: ReactNode) {
 
   const fetchRecommendData = async (query: string) => {
     try {
-      const data = await getSickList(query);
-      console.log('context api 호출..');
-      setRecommendValue(data);
-      return data;
+      if (query === '') {
+        setRecommendValue([]);
+      } else {
+        const data = await getSickList(query);
+        console.info('calling api..');
+        setRecommendValue(data);
+        return data;
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <sickContext.Provider value={{ recommendValue, fetchRecommendData }}>
+    <sickContext.Provider
+      value={{ recommendValue, fetchRecommendData, setRecommendValue }}
+    >
       {children}
     </sickContext.Provider>
   );
