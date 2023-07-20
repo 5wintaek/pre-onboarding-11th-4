@@ -1,6 +1,6 @@
 import { SearchContextType, sickContext } from '@/context/SickContext';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { RecommendList } from '../RecommendList';
+import { RecommendList } from '@/components/RecommendList/RecommendList';
 import * as S from './SearchBar.style';
 import { SearchIcon } from '@/assets/icon';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -41,15 +41,11 @@ export function SearchBar() {
   };
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInputValue(value);
-    await fetchRecommendData(value);
-
-    // if (e.target.value === '') {
-    //   setRecommendValue([]);
-    // } else {
-    //   await fetchRecommendData(e.target.value);
-    // }
+    setInputValue(e.target.value);
+    if (e.target.value === '') {
+      await fetchRecommendData('');
+      return;
+    }
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

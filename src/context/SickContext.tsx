@@ -22,8 +22,9 @@ export function SickProvider({ children }: ReactNode) {
 
   const fetchRecommendData = async (query: string) => {
     try {
-      if (query === '') {
+      if (!query) {
         setRecommendValue([]);
+        return;
       } else {
         const data = await getSickList(query);
         console.info('calling api..');
