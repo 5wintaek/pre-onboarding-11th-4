@@ -27,18 +27,7 @@ export function SearchBar() {
     });
   };
 
-  const handleClick = async () => {
-    // 여기는 이동처리만
-    // try {
-    //   if (inputValue.trim() !== '') {
-    //     const response = await getSickList(inputValue);
-    //     console.log(response);
-    //     setShowModal(true);
-    //   }
-    // } catch (error) {
-    //   console.error();
-    // }
-  };
+  const handleClick = async () => {};
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
