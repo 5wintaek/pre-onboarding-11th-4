@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+
 // import { SearchIcon } from '@/assets/icon';
 
-export const RecommendList = ({
+export const SearchList = ({
   recommendValue,
 }: {
   recommendValue: RecommendValueType[];

@@ -1,9 +1,10 @@
 import { SearchContextType, sickContext } from '@/context/SickContext';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { RecommendList } from '@/components/RecommendList/RecommendList';
+import { SearchList } from '@/components/SearchList/SearchList';
 import * as S from './SearchBar.style';
 import { SearchIcon } from '@/assets/icon';
 import { useDebounce } from '@/hooks/useDebounce';
+import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation';
 
 export function SearchBar() {
   const { recommendValue, fetchRecommendData } = useContext(
@@ -12,7 +13,7 @@ export function SearchBar() {
   const [inputValue, setInputValue] = useState<string>('');
   const debounce = useDebounce(inputValue, 300);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  // const limitedList = recommendValue?.slice(0, 7);
+  const { handleKeyDown } = useKeyboardNavigation(7);
 
   useEffect(() => {
     if (debounce) {
@@ -37,13 +38,6 @@ export function SearchBar() {
     }
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    // if (e.key === 'Enter') {
-    //   e.preventDefault();
-    //   handleClick();
-    // }
-  };
-
   return (
     <S.Container>
       <S.Header>국내 모든 임상시험 검색하고 온라인으로 참여하기</S.Header>
@@ -62,7 +56,7 @@ export function SearchBar() {
           </S.Button>
         </S.Label>
         {isFocused && inputValue.trim() !== '' ? (
-          <RecommendList recommendValue={recommendValue} />
+          <SearchList recommendValue={recommendValue} />
         ) : null}
       </S.Form>
     </S.Container>

@@ -1,8 +1,10 @@
 ## 실행 방법
+
 ```bash
 $ npm install
 $ npm start
 ```
+
 ## 기술 스택
 
 ![react](https://img.shields.io/badge/react-18.2.0-61DAFB?logo=react)
@@ -13,7 +15,9 @@ $ npm start
 ![reactMarkdown](https://img.shields.io/badge/react--markdown-8.0.6-00A98F?logo=reactMarkdown)
 
 ## 1. api 호출하기
+
 제일 처음으로 작업한 api 호출입니다. axios 를 사용하여 Create 로 먼저 어떻게 만들어줄지 정해줍니다.
+
 ```js
 import axios from 'axios';
 
@@ -30,7 +34,9 @@ export default axiosClient;
 ```
 
 ### 1-2 get 호출하기
+
 만든 axiosClient 를 가져온 후 get() 을 이용하여 data를 가져올 수 있게끔 하였습니다
+
 ```js
 import axios from 'axios';
 
@@ -47,8 +53,10 @@ export default axiosClient;
 ```
 
 ## 2. context API
+
 사실 contextAPI 를 사용하지 않아두 되지만, 저번 과제에서 배운 Context API 를 한번 더 사용하면서 익숙해지기 위해 사용하였습니다.
 추가적으로 filter 함수를 넣어 검색창에 들어가는 단어들이 포함이 된다면 검색창 UI 에 그려주도록 하였습니다.
+
 ```js
 import { getSickList } from '@/api/sickService';
 import { ReactNode, useState, createContext } from 'react';
@@ -102,12 +110,13 @@ export function SickProvider({ children }: ReactNode) {
 export type { SearchContextType, RecommendValueType };
 export default SickProvider;
 ```
+
 ## 3. SearchBar component
-SearchBar에는 form,label,input 이 존재하며 검색어를 입력할 시 검색창 UI 를 그려주는 RecommendList 가 존재합니다. 
+
+SearchBar에는 form,label,input 이 존재하며 검색어를 입력할 시 검색창 UI 를 그려주는 RecommendList 가 존재합니다.
 input 창에 Focus 가 간다면, 검색창이 나타나고 검색어를 입력하게 된다면 관련된 키워드를 나타내줍니다.
 Debounce 를 사용하여 키워드를 입력할떄마다 서버에 계속해서 전달해주는 현상을 막았습니다.
 아직까진 input 창에 입력을 하고 난 뒤, 클릭이나 엔터키를 누르게 된다면 그와 관련된 추천 검색어를 li창에 그려줘야 하지만 로컬스트리지 및 캐싱 작업을 마무리 하지 못하였습니다.
-
 
 ```js
 import { SearchContextType, sickContext } from '@/context/SickContext';
@@ -213,7 +222,8 @@ export function SearchBar() {
 ```
 
 ### 3-1 RecommendList
-map 함수를 이용하여 입력된 관련 검색어들을 li 창에 띄워주는 역할을 해줍니다. 
+
+map 함수를 이용하여 입력된 관련 검색어들을 li 창에 띄워주는 역할을 해줍니다.
 또한 input 창에 length 가 0 이라면 '추천 검색어를 없음' 이라는 문구를 띄워주는 역할을 합니다.
 
 ```js
@@ -256,6 +266,7 @@ export const List = styled.li`
 ```
 
 ### 3-2 useDebounce hook
+
 Debounce 로직의 대한 hook 을 직접 구현해 보았습니다.
 Debounce에 관한 개념들은 알았지만 직접 쓰는건 이번이 처음이다보니 적용하는 단계에서 많은 어려움을 겪었습니다.
 
@@ -277,7 +288,3 @@ export const useDebounce = (value: string, delay: number) => {
   return debounceValue;
 };
 ```
-
-
-
-
