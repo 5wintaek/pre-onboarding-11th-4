@@ -13,7 +13,7 @@ export function SearchBar() {
   const [inputValue, setInputValue] = useState<string>('');
   const debounce = useDebounce(inputValue, 300);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const { handleKeyDown } = useKeyboardNavigation(7);
+  const { handleKeyDown } = useKeyboardNavigation(recommendValue?.length);
 
   useEffect(() => {
     if (debounce) {
@@ -47,9 +47,8 @@ export function SearchBar() {
             type="text"
             value={inputValue}
             onChange={handleChange}
-            onKeyDown={handleKeyDown}
             onFocus={handleFocus}
-            onBlur={handleFocus}
+            onKeyDown={handleKeyDown}
           />
           <S.Button type="button" onClick={handleClick}>
             <SearchIcon width={'18px'} height={'20px'} />

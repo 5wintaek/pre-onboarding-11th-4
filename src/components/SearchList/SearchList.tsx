@@ -1,19 +1,24 @@
+import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation';
 import styled from 'styled-components';
-
-// import { SearchIcon } from '@/assets/icon';
 
 export const SearchList = ({
   recommendValue,
 }: {
   recommendValue: RecommendValueType[];
 }) => {
+  const { currentSearchIndex } = useKeyboardNavigation(recommendValue.length);
   return (
     <Wrap>
       {recommendValue.length === 0 ? (
         <List>추천 검색어 없음</List>
       ) : (
-        recommendValue.map((item) => (
-          <List key={item.sickCd}>{item.sickNm}</List>
+        recommendValue.map((item, index) => (
+          <List
+            key={item.sickCd}
+            className={index === currentSearchIndex ? 'selected' : ''}
+          >
+            {item.sickNm}
+          </List>
         ))
       )}
     </Wrap>
